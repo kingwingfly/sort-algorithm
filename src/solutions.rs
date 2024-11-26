@@ -148,27 +148,27 @@ impl SortSolution for QuickSort {
     }
 
     fn sort(&self, mut input: Vec<isize>) -> Vec<isize> {
-        fn quick_sort(mut input: Vec<isize>) -> Vec<isize> {
+        fn quick_sort(input: &mut [isize]) {
             let n = input.len();
             if n <= 1 {
-                return input;
+                return;
             }
-            let pivot = input.remove(0);
-            let mut left = Vec::new();
-            let mut right = Vec::new();
-            for x in input {
-                if x <= pivot {
-                    left.push(x);
-                } else {
-                    right.push(x);
+            let mut pivot = 0;
+            for i in 1..input.len() {
+                if input[i] < input[pivot] {
+                    for j in (pivot + 1..=i).rev() {
+                        input.swap(j, j - 1);
+                    }
+                    pivot += 1;
                 }
             }
-            let mut result = quick_sort(left);
-            result.push(pivot);
-            result.extend(quick_sort(right));
-            result
+            let (left, right) = input.split_at_mut(pivot);
+            let right = &mut right[1..];
+            quick_sort(left);
+            quick_sort(right);
         }
-        quick_sort(input)
+        quick_sort(&mut input);
+        input
     }
 }
 
