@@ -28,8 +28,8 @@ impl<'c> Checker<'c> {
         Default::default()
     }
 
-    pub fn add_solu(&mut self, solu: &'c dyn SortCheck) {
-        self.solus.push(solu)
+    pub fn add_solu(&mut self, solu: &'c [&dyn SortCheck]) {
+        self.solus.extend_from_slice(solu)
     }
 
     pub fn check(&self) {
