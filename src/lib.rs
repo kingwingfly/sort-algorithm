@@ -11,7 +11,7 @@ pub trait SortCheck: SortSolution {
     fn check(&self, input: &[isize]) {
         let mut ans = Vec::from(input);
         ans.sort();
-        assert!(self.sort(Vec::from(input)) == ans, "{:?}", input);
+        assert_eq!(self.sort(Vec::from(input)), ans, "{:?}", input);
     }
 }
 
